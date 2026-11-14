@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KantinKita.Views.ItemDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:motion="clr-namespace:KantinKita.Helpers"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:ItemDetailViewModel"
+    NavigationPage.HasNavigationBar="False"
+    SafeAreaEdges="All"
+    BackgroundColor="{AppThemeBinding Light={StaticResource CanvasLight}, Dark={StaticResource CanvasDark}}">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Padding="20,14,20,10" ColumnDefinitions="44,*,44" ColumnSpacing="12">
+            <Border Style="{StaticResource CircleIconBorder}" WidthRequest="42" HeightRequest="42" StrokeShape="RoundRectangle 11" SemanticProperties.Description="Kembali">
+                <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnBackTapped" /></Border.GestureRecognizers>
+                <controls:Icon Glyph="{x:Static controls:Icons.ArrowLeft}" Size="18" Style="{StaticResource IconBase}" />
+            </Border>
+            <Label Grid.Column="1" Text="DETAIL MENU" Style="{StaticResource TxtOverline}" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Border Grid.Column="2" Style="{StaticResource CircleIconBorder}" WidthRequest="42" HeightRequest="42" StrokeShape="RoundRectangle 11" SemanticProperties.Description="Simpan ke favorit">
+                <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding ToggleFavoriteCommand}" /></Border.GestureRecognizers>
+                <controls:Icon Glyph="{x:Static controls:Icons.Heart}" Size="18" IsFilled="{Binding IsFavorite}" motion:UiMotion.Pulse="{Binding IsFavorite}" Style="{StaticResource IconBrand}" />
+            </Border>
+        </Grid>
+
+        <ScrollView motion:UiMotion.Reveal="45" Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Padding="20,10,20,26" Spacing="23">
+                <Border Background="{AppThemeBinding Light={Binding HeroBrush}, Dark={StaticResource SurfaceMutedDark}}" StrokeThickness="0" StrokeShape="RoundRectangle 18" HeightRequest="190">
+                    <Grid Padding="16">
+                        <controls:Icon Glyph="{Binding IconGlyph}" Size="84" Style="{StaticResource IconBrand}" IsFilled="True" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Border Padding="8,5" StrokeThickness="0" StrokeShape="RoundRectangle 7" BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" HorizontalOptions="Start" VerticalOptions="Start" IsVisible="{Binding IsBestSeller}">
+                            <Label Text="TERLARIS" Style="{StaticResource TxtOverline}" FontSize="8" TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <VerticalStackLayout Spacing="11">
+                    <Label Text="{Binding Stall}" Style="{StaticResource TxtOverline}" FontSize="10.5" TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                    <Label Text="{Binding Name}" Style="{StaticResource TxtH1}" FontSize="27" LineBreakMode="WordWrap" />
+                    <Label Text="{Binding UnitPriceText}" motion:UiMotion.Pulse="{Binding UnitPriceText}" Style="{StaticResource TxtH2}" FontSize="23" />
+                </VerticalStackLayout>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                    <Border Style="{StaticResource Panel}" Padding="10,12" StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="5">
+                            <HorizontalStackLayout Spacing="5">
+                                <controls:Icon Glyph="{x:Static controls:Icons.Star}" Size="13" IsFilled="True" Style="{StaticResource IconBrand}" VerticalOptions="Center" />
+                                <Label Text="{Binding RatingText}" Style="{StaticResource TxtBodyStrong}" FontSize="13" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding ReviewText, StringFormat='{0} ulasan'}" Style="{StaticResource TxtCaption}" FontSize="9.5" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="1" Style="{StaticResource Panel}" Padding="10,12" StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="5">
+                            <controls:Icon Glyph="{x:Static controls:Icons.Clock}" Size="14" Style="{StaticResource IconMuted}" HorizontalOptions="Start" />
+                            <Label Text="{Binding PrepText}" Style="{StaticResource TxtBodyStrong}" FontSize="11" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="2" Style="{StaticResource Panel}" Padding="10,12" StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="5">
+                            <controls:Icon Glyph="{x:Static controls:Icons.Bag}" Size="14" Style="{StaticResource IconMuted}" HorizontalOptions="Start" />
+                            <Label Text="{Binding SoldText}" Style="{StaticResource TxtBodyStrong}" FontSize="10.5" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="TENTANG MENU" Style="{StaticResource TxtOverline}" FontSize="10" />
+                    <Label Text="{Binding Description}" Style="{StaticResource TxtBody}" FontSize="13" LineHeight="1.4" />
+                    <FlexLayout Direction="Row" Wrap="Wrap" AlignItems="Center">
+                        <HorizontalStackLayout Spacing="6" Margin="0,0,12,0">
+                            <controls:Icon Glyph="{x:Static controls:Icons.Info}" Size="13" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                            <Label Text="{Binding StockText}" Style="{StaticResource TxtCaption}" FontSize="10.5" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Border Padding="7,4" StrokeThickness="0" StrokeShape="RoundRectangle 6" BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}" IsVisible="{Binding IsSpicy}">
+                            <HorizontalStackLayout Spacing="4">
+                                <controls:Icon Glyph="{x:Static controls:Icons.Flame}" Size="12" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                                <Label Text="Pedas" Style="{StaticResource TxtCaption}" FontSize="9.5" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
+                    </FlexLayout>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="16" IsVisible="{Binding HasOptions}">
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <Label Text="Sesuaikan pesanan" Style="{StaticResource TxtBodyStrong}" FontFamily="sans-serif-medium" FontSize="16" VerticalOptions="Center" SemanticProperties.HeadingLevel="Level2" />
+                        <controls:Icon Grid.Column="1" Glyph="{x:Static controls:Icons.Edit}" Size="16" Style="{StaticResource IconMuted}" AutomationProperties.ExcludedWithChildren="True" />
+                    </Grid>
+                    <!-- Each group uses the full content width, without a second card inside it. -->
+                    <VerticalStackLayout Spacing="16" BindableLayout.ItemsSource="{Binding OptionGroups}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="vm:OptionGroupViewModel">
+                                <VerticalStackLayout Spacing="8">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" Padding="0,0,8,0">
+                                        <Label Text="{Binding Title}" Style="{StaticResource TxtBodyStrong}" FontFamily="sans-serif-medium" FontSize="14" VerticalOptions="Center" LineBreakMode="WordWrap" SemanticProperties.HeadingLevel="Level3" />
+                                        <Label Grid.Column="1" Text="{Binding SelectionHint}" Style="{StaticResource TxtCaption}" FontFamily="sans-serif" FontSize="12" VerticalOptions="Center" LineBreakMode="WordWrap" />
+                                    </Grid>
+                                    <FlexLayout Direction="Row" Wrap="Wrap" AlignItems="Stretch" BindableLayout.ItemsSource="{Binding Options}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="vm:OptionChoiceViewModel">
+                                                <Border FlexLayout.Basis="46%" FlexLayout.Grow="1" FlexLayout.Shrink="1"
+                                                        Margin="0,0,8,8" Padding="12,8" MinimumHeightRequest="56" MinimumWidthRequest="144"
+                                                        StrokeShape="RoundRectangle 8" StrokeThickness="1"
+                                                        Stroke="{AppThemeBinding Light={StaticResource LineLight}, Dark={StaticResource LineDark}}"
+                                                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}"
+                                                        SemanticProperties.Description="{Binding AccessibilityLabel}"
+                                                        SemanticProperties.Hint="{Binding AccessibilityHint}">
+                                                    <Border.Triggers>
+                                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}" />
+                                                            <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                                                        </DataTrigger>
+                                                    </Border.Triggers>
+                                                    <Grid ColumnDefinitions="*,16" ColumnSpacing="8" InputTransparent="True" AutomationProperties.ExcludedWithChildren="True">
+                                                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                                                            <Label Text="{Binding Name}" FontFamily="sans-serif-medium" FontSize="14" LineBreakMode="WordWrap">
+                                                                <Label.Triggers>
+                                                                    <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                                                        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                                                                    </DataTrigger>
+                                                                </Label.Triggers>
+                                                            </Label>
+                                                            <Label Text="{Binding PriceLabel}" Style="{StaticResource TxtCaption}" FontFamily="sans-serif" FontSize="12" LineBreakMode="WordWrap" />
+                                                        </VerticalStackLayout>
+                                                        <controls:Icon Grid.Column="1" Glyph="{x:Static controls:Icons.CheckCircle}" IsFilled="True" Size="16"
+                                                                       Style="{StaticResource IconBrand}" Opacity="0"
+                                                                       motion:UiMotion.Pulse="{Binding IsSelected}" VerticalOptions="Center">
+                                                            <controls:Icon.Triggers>
+                                                                <DataTrigger TargetType="controls:Icon" Binding="{Binding IsSelected}" Value="True">
+                                                                    <Setter Property="Opacity" Value="1" />
+                                                                </DataTrigger>
+                                                            </controls:Icon.Triggers>
+                                                        </controls:Icon>
+                                                    </Grid>
+                                                    <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding ChooseCommand}" /></Border.GestureRecognizers>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </FlexLayout>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="CATATAN UNTUK WARUNG" Style="{StaticResource TxtOverline}" FontSize="10" />
+                        <Label Grid.Column="1" Text="Opsional" Style="{StaticResource TxtCaption}" FontSize="10" />
+                    </Grid>
+                    <Border Style="{StaticResource Panel}" Padding="12,8" StrokeShape="RoundRectangle 12">
+                        <Editor AutoSize="TextChanges" HeightRequest="68" Placeholder="Contoh: sambal dipisah, tanpa lalapan…" Text="{Binding Note}" FontSize="12" />
+                    </Border>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Grid Grid.Row="2" RowDefinitions="1,Auto" BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
+            <BoxView Style="{StaticResource Divider}" />
+            <Grid Grid.Row="1" Margin="20,12,20,16" ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                <Border Style="{StaticResource Panel}" Padding="0" HeightRequest="50" WidthRequest="124" StrokeShape="RoundRectangle 11">
+                    <Grid ColumnDefinitions="42,*,42">
+                        <Button Text="−" Command="{Binding ReduceCommand}" Padding="0" BackgroundColor="Transparent" BorderWidth="0" MinimumWidthRequest="0" FontFamily="sans-serif-medium" FontSize="20" TextColor="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+                        <Label Grid.Column="1" Text="{Binding Quantity}" motion:UiMotion.Pulse="{Binding Quantity}" FontFamily="sans-serif-medium" FontSize="15" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Button Grid.Column="2" Text="+" Command="{Binding IncreaseCommand}" Padding="0" BackgroundColor="Transparent" BorderWidth="0" MinimumWidthRequest="0" FontFamily="sans-serif-medium" FontSize="20" TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                    </Grid>
+                </Border>
+                <Button Grid.Column="1" Text="{Binding AddButtonText}" Command="{Binding AddToCartCommand}" Style="{StaticResource BtnPrimary}" HeightRequest="50" FontSize="12.5" Padding="10,0" />
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

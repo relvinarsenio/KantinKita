@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="KantinKita.Views.Tabs.HomeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:motion="clr-namespace:KantinKita.Helpers"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:HomeViewModel">
+
+    <Grid>
+    <ScrollView x:Name="HomeScroll" VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout x:Name="ScrollBody" Padding="20,12,20,28" Spacing="12">
+            <Grid motion:UiMotion.Reveal="0" ColumnDefinitions="*,48" ColumnSpacing="12">
+                <Grid ColumnDefinitions="32,*" ColumnSpacing="10" MinimumHeightRequest="48" SemanticProperties.Description="Pilih kantin">
+                    <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnCanteenTapped" /></Grid.GestureRecognizers>
+                    <controls:Icon Glyph="{x:Static controls:Icons.Bowl}" Size="20" Style="{StaticResource IconBrand}" VerticalOptions="Center" InputTransparent="True" />
+                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center" InputTransparent="True">
+                        <Label Text="Kantin Kita" FontFamily="sans-serif-medium" FontSize="20" />
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="{Binding CanteenShortName}" Style="{StaticResource TxtCaption}" FontSize="12" MaxLines="1" LineBreakMode="TailTruncation" />
+                            <controls:Icon Glyph="{x:Static controls:Icons.ChevronDown}" Size="12" Style="{StaticResource IconMuted}" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+                <Border Grid.Column="1" WidthRequest="48" HeightRequest="48" Style="{StaticResource CompactSurface}" Padding="0" SemanticProperties.Description="Buka notifikasi">
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnNotificationsTapped" /></Border.GestureRecognizers>
+                    <Grid>
+                        <controls:Icon Glyph="{x:Static controls:Icons.Bell}" Size="20" Style="{StaticResource IconBase}" />
+                        <BoxView x:Name="NotificationBadge" IsVisible="False" WidthRequest="5" HeightRequest="5" Margin="0,10,10,0" CornerRadius="2.5" Color="{StaticResource Chili500}" HorizontalOptions="End" VerticalOptions="Start" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,48" ColumnSpacing="8">
+                <Border Padding="12,0,0,0" MinimumHeightRequest="48" Style="{StaticResource Panel}" StrokeShape="RoundRectangle 12">
+                    <Grid ColumnDefinitions="20,*,48" ColumnSpacing="8">
+                        <controls:Icon Glyph="{x:Static controls:Icons.Search}" Size="20" Style="{StaticResource IconMuted}" />
+                        <Entry x:Name="SearchEntry" Grid.Column="1" Placeholder="Lagi pengin makan apa?" ReturnType="Search" Completed="OnSearchCompleted" Text="{Binding SearchText}" FontSize="14" MinimumHeightRequest="48" VerticalOptions="Center" />
+                        <Border Grid.Column="2" WidthRequest="48" HeightRequest="48" IsVisible="{Binding IsSearching}" StrokeThickness="0" BackgroundColor="Transparent" SemanticProperties.Description="Hapus pencarian">
+                            <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding ClearSearchCommand}" /></Border.GestureRecognizers>
+                            <controls:Icon Glyph="{x:Static controls:Icons.Close}" Size="16" Style="{StaticResource IconMuted}" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" WidthRequest="48" HeightRequest="48" Style="{StaticResource CompactSurface}" Padding="0" SemanticProperties.Description="Pilih kategori">
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnCategoryTapped" /></Border.GestureRecognizers>
+                    <controls:Icon Glyph="{x:Static controls:Icons.Grid}" Size="20" Style="{StaticResource IconBrand}" InputTransparent="True" />
+                </Border>
+            </Grid>
+            <Border Padding="0,0,4,0" HorizontalOptions="Start" MinimumHeightRequest="48" IsVisible="{Binding HasCategoryFilter}" StrokeThickness="0" BackgroundColor="Transparent" SemanticProperties.Description="Hapus filter kategori">
+                <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding ClearCategoryCommand}" /></Border.GestureRecognizers>
+                <Grid ColumnDefinitions="Auto,32" ColumnSpacing="4" InputTransparent="True">
+                    <Label Text="{Binding SelectedCategoryLabel}" FontFamily="sans-serif-medium" FontSize="12" VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                    <controls:Icon Grid.Column="1" Glyph="{x:Static controls:Icons.Close}" Size="14" Style="{StaticResource IconBrand}" />
+                </Grid>
+            </Border>
+            <VerticalStackLayout x:Name="DiscoveryPromos" Spacing="12" IsVisible="{Binding IsBrowsing}">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Promo hari ini" FontFamily="sans-serif-medium" FontSize="18" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="Pilihan kantinmu" Style="{StaticResource TxtCaption}" FontSize="12" VerticalOptions="Center" />
+                </Grid>
+                <!-- The native Android controller exclusively owns tap, drag and scroll handoff. -->
+                <Grid x:Name="PromoDeck" HeightRequest="176" BackgroundColor="Transparent" SemanticProperties.Description="Geser atau ketuk promo pilihan">
+
+                    <Border x:Name="PromoBackCard" InputTransparent="True" Padding="16" Background="{Binding PreviewPromo.Background}"
+                            StrokeShape="RoundRectangle 18" StrokeThickness="0">
+                        <Grid RowDefinitions="Auto,*,40" ColumnDefinitions="*,72" RowSpacing="8" ColumnSpacing="12">
+                            <Label Grid.ColumnSpan="2" Text="{Binding PreviewPromo.Badge}" FontFamily="sans-serif-medium" FontSize="10" CharacterSpacing="0.7" TextColor="#DDEAFF" />
+                            <VerticalStackLayout Grid.Row="1" Spacing="7" VerticalOptions="Center">
+                                <Label Text="{Binding PreviewPromo.Title}" FontFamily="sans-serif-medium" FontSize="20" LineHeight="1.03" MaxLines="2" TextColor="White" />
+                                <Label Text="{Binding PreviewPromo.Subtitle}" FontSize="12" MaxLines="1" LineBreakMode="TailTruncation" TextColor="#DBE7FF" />
+                            </VerticalStackLayout>
+                            <controls:Icon Grid.Row="1" Grid.Column="1" Glyph="{Binding PreviewPromo.IconGlyph}" Size="36" Color="White" IsFilled="True" Opacity="0.8" HorizontalOptions="Center" VerticalOptions="Center" />
+                            <Label Grid.Row="2" Text="{Binding PreviewPromo.PriceText}" FontFamily="sans-serif-medium" FontSize="20" TextColor="White" VerticalOptions="Center" />
+                            <Border Grid.Row="2" Grid.Column="1" Padding="6,0" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 11">
+                                <HorizontalStackLayout Spacing="7" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="Pesan" FontFamily="sans-serif-medium" FontSize="12" TextColor="#1D4ED8" VerticalOptions="Center" />
+                                    <controls:Icon Glyph="{x:Static controls:Icons.ArrowRight}" Size="15" Color="#1D4ED8" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="PromoCard" InputTransparent="True" Padding="16" Background="{Binding CurrentPromo.Background}"
+                             StrokeShape="RoundRectangle 18" StrokeThickness="0">
+                        <Grid RowDefinitions="Auto,*,40" ColumnDefinitions="*,72" RowSpacing="8" ColumnSpacing="12">
+                            <Label Grid.ColumnSpan="2" Text="{Binding CurrentPromo.Badge}" FontFamily="sans-serif-medium" FontSize="10" CharacterSpacing="0.7" TextColor="#DDEAFF" />
+                            <VerticalStackLayout Grid.Row="1" Spacing="7" VerticalOptions="Center">
+                                <Label Text="{Binding CurrentPromo.Title}" FontFamily="sans-serif-medium" FontSize="20" LineHeight="1.03" MaxLines="2" TextColor="White" />
+                                <Label Text="{Binding CurrentPromo.Subtitle}" FontSize="12" MaxLines="1" LineBreakMode="TailTruncation" TextColor="#DBE7FF" />
+                            </VerticalStackLayout>
+                            <controls:Icon Grid.Row="1" Grid.Column="1" Glyph="{Binding CurrentPromo.IconGlyph}" Size="36" Color="White" IsFilled="True" Opacity="0.8" HorizontalOptions="Center" VerticalOptions="Center" />
+                            <Label Grid.Row="2" Text="{Binding CurrentPromo.PriceText}" FontFamily="sans-serif-medium" FontSize="20" TextColor="White" VerticalOptions="Center" />
+                            <Border Grid.Row="2" Grid.Column="1" Padding="6,0" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 11">
+                                <HorizontalStackLayout Spacing="7" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="Pesan" FontFamily="sans-serif-medium" FontSize="12" TextColor="#1D4ED8" VerticalOptions="Center" />
+                                    <controls:Icon Glyph="{x:Static controls:Icons.ArrowRight}" Size="15" Color="#1D4ED8" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid ColumnDefinitions="44,*,44" Margin="0,2,0,0">
+                    <Border HeightRequest="44" StrokeThickness="0" BackgroundColor="Transparent" SemanticProperties.Description="Promo sebelumnya">
+                        <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnPreviousTapped" /></Border.GestureRecognizers>
+                        <controls:Icon Glyph="{x:Static controls:Icons.ArrowLeft}" Size="18" Style="{StaticResource IconMuted}" />
+                    </Border>
+                    <controls:PromoIndicator Grid.Column="1" Count="{Binding Promos.Count}" SelectedIndex="{Binding CurrentPromoIndex}" />
+                    <Border Grid.Column="2" HeightRequest="44" StrokeThickness="0" BackgroundColor="Transparent" SemanticProperties.Description="Promo berikutnya">
+                        <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnNextTapped" /></Border.GestureRecognizers>
+                        <controls:Icon Glyph="{x:Static controls:Icons.ArrowRight}" Size="18" Style="{StaticResource IconMuted}" />
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+
+            <Grid x:Name="ResultsHeader" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding RecommendationsTitle}" Style="{StaticResource TxtH2}" FontSize="18" />
+                    <Label Text="{Binding ResultsDescription}" IsVisible="{Binding IsBrowsing, Converter={StaticResource InvertedBool}}" Style="{StaticResource TxtCaption}" FontSize="12" LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+                <Label Grid.Column="1" Text="{Binding ResultCountText}" Style="{StaticResource TxtCaption}" FontSize="12" VerticalOptions="Center" />
+            </Grid>
+
+            <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Stretch" BindableLayout.ItemsSource="{Binding Recommendations}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:MenuItemCardViewModel">
+                        <Border FlexLayout.Basis="48%" FlexLayout.Shrink="0" FlexLayout.Grow="0" Margin="0,0,0,12" Style="{StaticResource CompactSurface}">
+                            <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
+                                <VerticalStackLayout Spacing="8" SemanticProperties.Description="{Binding Name, StringFormat='Lihat detail {0}'}">
+                                    <VerticalStackLayout.GestureRecognizers><TapGestureRecognizer Command="{Binding OpenCommand}" /></VerticalStackLayout.GestureRecognizers>
+                                    <Grid ColumnDefinitions="28,*" ColumnSpacing="8">
+                                        <controls:Icon Glyph="{Binding IconGlyph}" Size="28" Style="{StaticResource IconBrand}" IsFilled="True" />
+                                        <HorizontalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center" HorizontalOptions="End">
+                                            <controls:Icon Glyph="{x:Static controls:Icons.Star}" Size="12" IsFilled="True" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                                            <Label Text="{Binding RatingText}" Style="{StaticResource TxtCaption}" FontSize="12" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="{Binding Name}" FontFamily="sans-serif-medium" FontSize="14" MinimumHeightRequest="40" MaxLines="2" LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding Stall}" Style="{StaticResource TxtCaption}" FontSize="12" MaxLines="1" LineBreakMode="TailTruncation" />
+                                    </VerticalStackLayout>
+                                </VerticalStackLayout>
+                                <Grid Grid.Row="1" ColumnDefinitions="*,48" ColumnSpacing="4" MinimumHeightRequest="48">
+                                    <Label Text="{Binding PriceText}" FontFamily="sans-serif-medium" FontSize="14" LineBreakMode="CharacterWrap" VerticalOptions="Center" />
+                                    <Grid Grid.Column="1" WidthRequest="48" HeightRequest="48" BackgroundColor="Transparent" SemanticProperties.Description="{Binding Name, StringFormat='Tambah {0} ke keranjang'}">
+                                        <Grid.GestureRecognizers><TapGestureRecognizer Command="{Binding AddCommand}" /></Grid.GestureRecognizers>
+                                        <Border Style="{StaticResource CompactAction}" HorizontalOptions="Center" VerticalOptions="Center" InputTransparent="True">
+                                            <Grid>
+                                                <controls:Icon Glyph="{x:Static controls:Icons.Plus}" Size="18" Style="{StaticResource IconBrand}" IsVisible="{Binding IsInCart, Converter={StaticResource InvertedBool}}" />
+                                                <Label Text="{Binding QuantityText}" motion:UiMotion.Pulse="{Binding QuantityText}" IsVisible="{Binding IsInCart}" FontFamily="sans-serif-medium" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+            <Border Padding="16,24" StrokeThickness="0" BackgroundColor="Transparent" IsVisible="{Binding IsEmpty}">
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <controls:Icon Glyph="{x:Static controls:Icons.Search}" Size="30" Style="{StaticResource IconMuted}" />
+                    <Label Text="Belum ada menu yang cocok" FontFamily="sans-serif-medium" FontSize="18" HorizontalTextAlignment="Center" />
+                    <Label Text="Coba kata kunci lain atau tampilkan semua menu di kantin ini." Style="{StaticResource TxtCaption}" FontSize="12" HorizontalTextAlignment="Center" />
+                    <Button Text="Atur ulang pencarian" Command="{Binding ResetFiltersCommand}" Style="{StaticResource BtnSecondary}" MinimumHeightRequest="48" FontSize="14" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Lihat seluruh menu kantin" Command="{Binding SeeAllCommand}" IsVisible="{Binding HasMoreItems}"
+                    Style="{StaticResource BtnSecondary}" CornerRadius="12" MinimumHeightRequest="48" FontSize="14" />
+        </VerticalStackLayout>
+    </ScrollView>
+        <!-- Kept measured while natively hidden, so opening does not rebuild Home. -->
+        <Grid x:Name="NotificationOverlay" x:DataType="vm:HomeNotificationsViewModel">
+            <BoxView x:Name="NotificationScrim" motion:UiMotion.Interaction="False" Color="#30000000">
+                <BoxView.GestureRecognizers><TapGestureRecognizer Tapped="OnNotificationDismissTapped" /></BoxView.GestureRecognizers>
+            </BoxView>
+            <Border x:Name="NotificationPanel" motion:UiMotion.Interaction="False" Margin="16,74,16,16" WidthRequest="320" MaximumHeightRequest="440"
+                    Padding="16" HorizontalOptions="End" VerticalOptions="Start" StrokeShape="RoundRectangle 18"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}"
+                    Stroke="{AppThemeBinding Light={StaticResource LineLight}, Dark={StaticResource LineDark}}"
+                    StrokeThickness="1" Shadow="{StaticResource ShadowFloat}" SemanticProperties.Description="Panel notifikasi">
+                <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnNotificationPanelTapped" /></Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*,44">
+                        <VerticalStackLayout Spacing="3" VerticalOptions="Center">
+                            <Label Text="Notifikasi" Style="{StaticResource TxtBodyStrong}" FontSize="17" />
+                            <Label Text="Aktivitas pesananmu" Style="{StaticResource TxtCaption}" FontSize="10" />
+                        </VerticalStackLayout>
+                        <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0" BackgroundColor="Transparent"
+                                SemanticProperties.Description="Tutup notifikasi">
+                            <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnNotificationDismissTapped" /></Border.GestureRecognizers>
+                            <controls:Icon Glyph="{x:Static controls:Icons.Close}" Size="17" Style="{StaticResource IconMuted}" InputTransparent="True" />
+                        </Border>
+                    </Grid>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <VerticalStackLayout Padding="12,16" Spacing="10" IsVisible="{Binding HasEntries, Converter={StaticResource InvertedBool}}">
+                        <controls:Icon Glyph="{x:Static controls:Icons.Bell}" Size="26" Style="{StaticResource IconMuted}" />
+                        <Label Text="Belum ada notifikasi" FontSize="12" FontFamily="sans-serif-medium" HorizontalTextAlignment="Center" />
+                        <Label Text="Info pesanan akan muncul di sini saat ada transaksi." Style="{StaticResource TxtCaption}" FontSize="11" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                    <ScrollView MaximumHeightRequest="320" VerticalScrollBarVisibility="Never" IsVisible="{Binding HasEntries}">
+                        <VerticalStackLayout Spacing="4" BindableLayout.ItemsSource="{Binding Entries}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:NotificationEntryViewModel">
+                                    <Border Padding="4,10" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="Transparent">
+                                        <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnNotificationEntryTapped" CommandParameter="{Binding Order}" /></Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="32,*" ColumnSpacing="10" InputTransparent="True">
+                                            <Border WidthRequest="32" HeightRequest="32" VerticalOptions="Start" StrokeThickness="0" StrokeShape="RoundRectangle 9"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}">
+                                                <controls:Icon Glyph="{Binding IconGlyph}" Size="17" Style="{StaticResource IconBrand}" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                                <Label Text="{Binding Title}" FontFamily="sans-serif-medium" FontSize="12" MaxLines="2" />
+                                                <Label Text="{Binding Message}" Style="{StaticResource TxtCaption}" FontSize="10" MaxLines="2" />
+                                                <Label Text="{Binding TimeText}" Style="{StaticResource TxtCaption}" FontSize="9" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentView>
+
+

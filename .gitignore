@@ -1,0 +1,17 @@
+## Build output
+bin/
+obj/
+
+## IDE
+.vs/
+.idea/
+*.user
+
+## Local tools / scratch
+.screenshots/
+cli-home/
+*.binlog
+
+## OS
+.DS_Store
+Thumbs.db

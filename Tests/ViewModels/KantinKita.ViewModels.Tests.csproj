@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls.Core" Version="10.0.110" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <Using Include="Microsoft.Maui.Controls" />
+    <Using Include="Microsoft.Maui.Graphics" />
+    <Using Include="Microsoft.Maui.Storage" />
+    <Compile Include="..\..\Models\MenuModels.cs" Link="Models\MenuModels.cs" />
+    <Compile Include="..\..\Models\CanteenModels.cs" Link="Models\CanteenModels.cs" />
+    <Compile Include="..\..\Models\FulfillmentModels.cs" Link="Models\FulfillmentModels.cs" />
+    <Compile Include="..\..\Models\MenuIconMap.cs" Link="Models\MenuIconMap.cs" />
+    <Compile Include="..\..\Helpers\Money.cs" Link="Helpers\Money.cs" />
+    <Compile Include="..\..\Helpers\BrushFactory.cs" Link="Helpers\BrushFactory.cs" />
+    <Compile Include="..\..\Helpers\Haptics.cs" Link="Helpers\Haptics.cs" />
+    <Compile Include="..\..\ViewModels\ItemDetailViewModel.cs" Link="ViewModels\ItemDetailViewModel.cs" />
+    <Compile Include="..\..\ViewModels\CartViewModel.cs" Link="ViewModels\CartViewModel.cs" />
+    <Compile Include="..\..\ViewModels\SharedViewModels.cs" Link="ViewModels\SharedViewModels.cs" />
+    <Compile Include="..\..\ViewModels\HomeViewModel.cs" Link="ViewModels\HomeViewModel.cs" />
+    <Compile Include="..\..\Services\MenuService.cs" Link="Services\MenuService.cs" />
+    <Compile Include="..\..\Services\VisualChoiceModels.cs" Link="Services\VisualChoiceModels.cs" />
+    <Compile Include="..\..\Data\SeedData.cs" Link="Data\SeedData.cs" />
+    <Compile Include="..\..\Controls\Icon.cs" Link="Controls\Icon.cs" />
+    <Compile Include="..\..\Controls\Icons.cs" Link="Controls\Icons.cs" />
+    <Compile Include="..\..\Services\CartStorage.cs" Link="Services\CartStorage.cs" />
+      <Compile Include="..\..\Services\CartActions.cs" Link="Services\CartActions.cs" />
+    <Compile Include="..\..\Services\CanteenSelectionService.cs" Link="Services\CanteenSelectionService.cs" />
+  </ItemGroup>
+</Project>

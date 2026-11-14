@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- ============================================================
+         Kantin Kita design tokens
+         Fluent mobile: cobalt accent, cool neutral surfaces and AMOLED dark mode
+         ============================================================ -->
+
+    <!-- Legacy palette keys retained for existing templates; the brand is now cobalt. -->
+    <Color x:Key="Green950">#0B1430</Color>
+    <Color x:Key="Green900">#102454</Color>
+    <Color x:Key="Green800">#173F8F</Color>
+    <Color x:Key="Green700">#2563EB</Color>
+    <Color x:Key="Green600">#2E6DEB</Color>
+    <Color x:Key="Green500">#377CF6</Color>
+    <Color x:Key="Green400">#71A2FF</Color>
+    <Color x:Key="Green300">#AEC8FF</Color>
+    <Color x:Key="Green100">#DFE9FF</Color>
+    <Color x:Key="Green50">#F0F5FF</Color>
+
+    <Color x:Key="Mango600">#B7791F</Color>
+    <Color x:Key="Mango500">#F2BD57</Color>
+    <Color x:Key="Mango400">#FAD58A</Color>
+    <Color x:Key="Mango100">#FFF4DA</Color>
+
+    <Color x:Key="Chili600">#D24A43</Color>
+    <Color x:Key="Chili500">#EE7467</Color>
+    <Color x:Key="Chili100">#FCEBE9</Color>
+
+    <Color x:Key="Cream">#F7F8FC</Color>
+    <Color x:Key="PureWhite">#FFFFFF</Color>
+    <Color x:Key="PureBlack">#000000</Color>
+
+    <!-- Light theme surfaces -->
+    <Color x:Key="CanvasLight">#F3F5F9</Color>
+    <Color x:Key="SurfaceLight">#FFFFFF</Color>
+    <Color x:Key="SurfaceMutedLight">#ECEFF5</Color>
+    <Color x:Key="InkLight">#152036</Color>
+    <Color x:Key="InkSoftLight">#47546C</Color>
+    <Color x:Key="MutedLight">#5F6B7A</Color>
+    <Color x:Key="LineLight">#E3E8F0</Color>
+    <Color x:Key="BrandLight">#2563EB</Color>
+    <Color x:Key="BrandDeepLight">#1B49C7</Color>
+    <Color x:Key="BrandSoftLight">#EAF0FF</Color>
+    <Color x:Key="OnBrandLight">#FFFFFF</Color>
+
+    <!-- Dark theme surfaces -->
+    <Color x:Key="CanvasDark">#000000</Color>
+    <Color x:Key="SurfaceDark">#080808</Color>
+    <Color x:Key="SurfaceMutedDark">#121212</Color>
+    <Color x:Key="InkDark">#F5F5F5</Color>
+    <Color x:Key="InkSoftDark">#D0D0D0</Color>
+    <Color x:Key="MutedDark">#9DA3AD</Color>
+    <Color x:Key="LineDark">#262626</Color>
+    <Color x:Key="BrandDark">#8FB5FF</Color>
+    <Color x:Key="BrandDeepDark">#B1CBFF</Color>
+    <Color x:Key="BrandSoftDark">#08152B</Color>
+    <Color x:Key="OnBrandDark">#0B1834</Color>
+
+    <!-- Gradients -->
+    <!-- A quiet floating plate and a more translucent moving lens. -->
+    <LinearGradientBrush x:Key="NavPlateLight" StartPoint="0,0" EndPoint="0.8,1">
+        <GradientStop Color="#FAFFFFFF" Offset="0" />
+        <GradientStop Color="#F3EDF3FC" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="NavPlateDark" StartPoint="0,0" EndPoint="0.8,1">
+        <GradientStop Color="#FC080808" Offset="0" />
+        <GradientStop Color="#FC000000" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="NavGlassLight" StartPoint="0,0" EndPoint="0.8,1">
+        <GradientStop Color="#B3FFFFFF" Offset="0" />
+        <GradientStop Color="#30FFFFFF" Offset="0.45" />
+        <GradientStop Color="#28A1BDFA" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="NavGlassDark" StartPoint="0,0" EndPoint="0.8,1">
+        <GradientStop Color="#3DB8CFF7" Offset="0" />
+        <GradientStop Color="#0DFFFFFF" Offset="0.45" />
+        <GradientStop Color="#2490B5FF" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="BrandGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#173F9A" Offset="0.0" />
+        <GradientStop Color="#245BCA" Offset="0.5" />
+        <GradientStop Color="#245BCA" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BrandGradientDeep" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#193568" Offset="0.0" />
+        <GradientStop Color="#294F9F" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MangoGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FFB648" Offset="0.0" />
+        <GradientStop Color="#F2793A" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ChiliGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF8A5C" Offset="0.0" />
+        <GradientStop Color="#E5573F" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MintGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#F0F4FF" Offset="0.0" />
+        <GradientStop Color="#E1E9FC" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="InkGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#182238" Offset="0.0" />
+        <GradientStop Color="#293E65" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <!-- Elevation -->
+    <Shadow x:Key="ShadowCard" Brush="#0C152538" Offset="0,2" Radius="6" Opacity="1" />
+    <Shadow x:Key="ShadowFloat" Brush="#18152538" Offset="0,5" Radius="14" Opacity="1" />
+    <Shadow x:Key="ShadowBrand" Brush="#292563EB" Offset="0,4" Radius="10" Opacity="1" />
+
+</ResourceDictionary>

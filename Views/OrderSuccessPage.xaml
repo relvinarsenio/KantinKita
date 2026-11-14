@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KantinKita.Views.OrderSuccessPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:OrderSuccessViewModel"
+    NavigationPage.HasNavigationBar="False"
+    SafeAreaEdges="All"
+    BackgroundColor="{AppThemeBinding Light={StaticResource CanvasLight}, Dark={StaticResource CanvasDark}}">
+
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Padding="20,28,20,26" Spacing="20">
+            <Grid ColumnDefinitions="*,64" ColumnSpacing="18">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="KANTIN KITA / KONFIRMASI" Style="{StaticResource TxtOverline}" FontSize="8.5" CharacterSpacing="1.5" />
+                    <Label Text="Pesanan&#10;diterima." Style="{StaticResource TxtDisplay}" FontSize="34" LineHeight="1.05" />
+                    <Label Text="Warung sudah menerima pilihanmu." Style="{StaticResource TxtMuted}" FontSize="12" />
+                </VerticalStackLayout>
+                <Border x:Name="SuccessBadge" Grid.Column="1" WidthRequest="64" HeightRequest="64" Margin="0,20,0,0" VerticalOptions="Start"
+                        StrokeThickness="1" StrokeShape="RoundRectangle 18"
+                        Stroke="{AppThemeBinding Light={StaticResource LineLight}, Dark={StaticResource LineDark}}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}">
+                    <controls:Icon Glyph="{x:Static controls:Icons.Check}" Size="30" Style="{StaticResource IconBrand}" />
+                </Border>
+            </Grid>
+
+            <Border x:Name="ReceiptContent" Padding="18" Style="{StaticResource Card}" StrokeShape="RoundRectangle 18">
+                <VerticalStackLayout Spacing="18">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                        <controls:Icon Glyph="{x:Static controls:Icons.Bowl}" Size="18" Style="{StaticResource IconBrand}" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="KANTIN KITA" Style="{StaticResource TxtOverline}" FontSize="9" CharacterSpacing="1.4" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="STRUK DIGITAL" Style="{StaticResource TxtCaption}" FontSize="8" CharacterSpacing="1" VerticalOptions="Center" />
+                    </Grid>
+
+                    <Border Padding="16" StrokeThickness="0" StrokeShape="RoundRectangle 12"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}">
+                        <Grid ColumnDefinitions="*,38" ColumnSpacing="12">
+                            <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                                <Label Text="KODE PESANAN" Style="{StaticResource TxtOverline}" FontSize="8" CharacterSpacing="1.5" />
+                                <Label Text="{Binding Code}" FontFamily="sans-serif-medium" FontSize="28" CharacterSpacing="0.8"
+                                       TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                                <Label Text="{Binding CodeInstruction}" Style="{StaticResource TxtCaption}" FontSize="10" />
+                            </VerticalStackLayout>
+                            <controls:Icon Grid.Column="1" Glyph="{x:Static controls:Icons.Receipt}" Size="31" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="ESTIMASI SIAP" Style="{StaticResource TxtOverline}" FontSize="7.5" CharacterSpacing="1" />
+                            <Label Text="{Binding PickupTimeText}" Style="{StaticResource TxtH1}" FontSize="25" />
+                            <Label Text="{Binding DestinationText}" Style="{StaticResource TxtCaption}" FontSize="10.5" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                            <Label Text="METODE PEMBAYARAN" Style="{StaticResource TxtOverline}" FontSize="7.5" CharacterSpacing="1" />
+                            <Label Text="{Binding PaymentText}" Style="{StaticResource TxtBodyStrong}" FontSize="13" />
+                            <Label Text="{Binding FulfillmentText}" Style="{StaticResource TxtCaption}" FontSize="10" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <VerticalStackLayout Spacing="7">
+                        <Label Text="PILIHANMU" Style="{StaticResource TxtOverline}" FontSize="8.5" CharacterSpacing="1.2" />
+                        <Label Text="{Binding ItemsText}" Style="{StaticResource TxtBodyStrong}" FontSize="12.5" LineHeight="1.55" />
+                        <Label Text="{Binding NoteText}" IsVisible="{Binding HasNote}" Style="{StaticResource TxtCaption}" FontSize="10.5" LineHeight="1.3" />
+                    </VerticalStackLayout>
+                    <Border Padding="12,9" IsVisible="{Binding HasSaving}" StrokeShape="RoundRectangle 9" StrokeThickness="0"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}">
+                        <Grid ColumnDefinitions="16,*" ColumnSpacing="8">
+                            <controls:Icon Glyph="{x:Static controls:Icons.Ticket}" Size="14" Style="{StaticResource IconBrand}" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="{Binding SavingText}" FontFamily="sans-serif-medium" FontSize="11"
+                                   TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                            <Label Text="Total pembayaran" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                            <Label Text="Sudah termasuk layanan" Style="{StaticResource TxtCaption}" FontSize="9.5" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="{Binding TotalText}" Style="{StaticResource TxtH1}" FontSize="24" VerticalOptions="Center" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Spacing="11">
+                <Label Text="SELANJUTNYA" Style="{StaticResource TxtOverline}" FontSize="9" CharacterSpacing="1.5" />
+                <Border Padding="16" Style="{StaticResource Panel}" StrokeShape="RoundRectangle 16">
+                    <VerticalStackLayout Spacing="16">
+                        <Grid ColumnDefinitions="32,*" ColumnSpacing="12">
+                            <Border WidthRequest="32" HeightRequest="34" StrokeShape="RoundRectangle 8" StrokeThickness="0"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}">
+                                <controls:Icon Glyph="{x:Static controls:Icons.Check}" Size="16" Style="{StaticResource IconBrand}" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                <Label Text="Warung menerima pesanan" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                                <Label Text="Kode pesanan sudah dibuat." Style="{StaticResource TxtCaption}" FontSize="10.5" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Grid ColumnDefinitions="32,*" ColumnSpacing="12">
+                            <Border WidthRequest="32" HeightRequest="34" StrokeShape="RoundRectangle 8" StrokeThickness="0"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}">
+                                <controls:Icon Glyph="{x:Static controls:Icons.Flame}" Size="16" Style="{StaticResource IconMuted}" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                <Label Text="Dapur menyiapkan pilihanmu" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                                <Label Text="Pantau perkembangannya di Pesanan." Style="{StaticResource TxtCaption}" FontSize="10.5" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Grid ColumnDefinitions="32,*" ColumnSpacing="12">
+                            <Border WidthRequest="32" HeightRequest="34" StrokeShape="RoundRectangle 8" StrokeThickness="0"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}">
+                                <controls:Icon Glyph="{x:Static controls:Icons.Bag}" Size="16" Style="{StaticResource IconMuted}" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                <Label Text="{Binding ReceiveStepTitle}" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                                <Label Text="{Binding PickupText}" Style="{StaticResource TxtCaption}" FontSize="10.5" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="9">
+                <Button Command="{Binding ShowOrdersCommand}" Style="{StaticResource BtnPrimary}" Text="Lihat pesanan" HeightRequest="50" />
+                <Button Command="{Binding OpenReceiptCommand}" Style="{StaticResource BtnSecondary}" Text="Lihat struk lengkap" HeightRequest="50" />
+                <Button Command="{Binding GoHomeCommand}" Style="{StaticResource BtnSecondary}" Text="Kembali ke beranda" HeightRequest="50" />
+            </VerticalStackLayout>
+            <Label Text="Gunakan kode di atas saat menerima pesanan." Style="{StaticResource TxtCaption}" FontSize="10" HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

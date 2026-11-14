@@ -1,0 +1,256 @@
+{
+  "repository": "https://github.com/microsoft/fluentui-system-icons",
+  "commit": "82ecf7cbdb43684403c7125efa160be04a33dca5",
+  "size": 24,
+  "icons": [
+    {
+      "name": "Mail",
+      "file": "svg/ic_fluent_mail_24_regular.svg",
+      "source": "assets/Mail/SVG/ic_fluent_mail_24_regular.svg"
+    },
+    {
+      "name": "Home",
+      "file": "svg/ic_fluent_home_24_regular.svg",
+      "source": "assets/Home/SVG/ic_fluent_home_24_regular.svg"
+    },
+    {
+      "name": "Utensils",
+      "file": "svg/ic_fluent_food_24_regular.svg",
+      "source": "assets/Food/SVG/ic_fluent_food_24_regular.svg"
+    },
+    {
+      "name": "Receipt",
+      "file": "svg/ic_fluent_receipt_24_regular.svg",
+      "source": "assets/Receipt/SVG/ic_fluent_receipt_24_regular.svg"
+    },
+    {
+      "name": "User",
+      "file": "svg/ic_fluent_person_24_regular.svg",
+      "source": "assets/Person/SVG/ic_fluent_person_24_regular.svg"
+    },
+    {
+      "name": "Search",
+      "file": "svg/ic_fluent_search_24_regular.svg",
+      "source": "assets/Search/SVG/ic_fluent_search_24_regular.svg"
+    },
+    {
+      "name": "Bell",
+      "file": "svg/ic_fluent_alert_24_regular.svg",
+      "source": "assets/Alert/SVG/ic_fluent_alert_24_regular.svg"
+    },
+    {
+      "name": "Pin",
+      "file": "svg/ic_fluent_location_24_regular.svg",
+      "source": "assets/Location/SVG/ic_fluent_location_24_regular.svg"
+    },
+    {
+      "name": "ChevronRight",
+      "file": "svg/ic_fluent_chevron_right_24_regular.svg",
+      "source": "assets/Chevron Right/SVG/ic_fluent_chevron_right_24_regular.svg"
+    },
+    {
+      "name": "ChevronDown",
+      "file": "svg/ic_fluent_chevron_down_24_regular.svg",
+      "source": "assets/Chevron Down/SVG/ic_fluent_chevron_down_24_regular.svg"
+    },
+    {
+      "name": "ArrowLeft",
+      "file": "svg/ic_fluent_arrow_left_24_regular.svg",
+      "source": "assets/Arrow Left/SVG/ic_fluent_arrow_left_24_regular.svg"
+    },
+    {
+      "name": "ArrowRight",
+      "file": "svg/ic_fluent_arrow_right_24_regular.svg",
+      "source": "assets/Arrow Right/SVG/ic_fluent_arrow_right_24_regular.svg"
+    },
+    {
+      "name": "Plus",
+      "file": "svg/ic_fluent_add_24_regular.svg",
+      "source": "assets/Add/SVG/ic_fluent_add_24_regular.svg"
+    },
+    {
+      "name": "Minus",
+      "file": "svg/ic_fluent_subtract_24_regular.svg",
+      "source": "assets/Subtract/SVG/ic_fluent_subtract_24_regular.svg"
+    },
+    {
+      "name": "Check",
+      "file": "svg/ic_fluent_checkmark_24_regular.svg",
+      "source": "assets/Checkmark/SVG/ic_fluent_checkmark_24_regular.svg"
+    },
+    {
+      "name": "CheckCircle",
+      "file": "svg/ic_fluent_checkmark_circle_24_regular.svg",
+      "source": "assets/Checkmark Circle/SVG/ic_fluent_checkmark_circle_24_regular.svg"
+    },
+    {
+      "name": "Close",
+      "file": "svg/ic_fluent_dismiss_24_regular.svg",
+      "source": "assets/Dismiss/SVG/ic_fluent_dismiss_24_regular.svg"
+    },
+    {
+      "name": "Star",
+      "file": "svg/ic_fluent_star_24_regular.svg",
+      "source": "assets/Star/SVG/ic_fluent_star_24_regular.svg"
+    },
+    {
+      "name": "Heart",
+      "file": "svg/ic_fluent_heart_24_regular.svg",
+      "source": "assets/Heart/SVG/ic_fluent_heart_24_regular.svg"
+    },
+    {
+      "name": "Clock",
+      "file": "svg/ic_fluent_clock_24_regular.svg",
+      "source": "assets/Clock/SVG/ic_fluent_clock_24_regular.svg"
+    },
+    {
+      "name": "Flame",
+      "file": "svg/ic_fluent_fire_24_regular.svg",
+      "source": "assets/Fire/SVG/ic_fluent_fire_24_regular.svg"
+    },
+    {
+      "name": "Ticket",
+      "file": "svg/ic_fluent_ticket_diagonal_24_regular.svg",
+      "source": "assets/Ticket Diagonal/SVG/ic_fluent_ticket_diagonal_24_regular.svg"
+    },
+    {
+      "name": "Wallet",
+      "file": "svg/ic_fluent_wallet_24_regular.svg",
+      "source": "assets/Wallet/SVG/ic_fluent_wallet_24_regular.svg"
+    },
+    {
+      "name": "Help",
+      "file": "svg/ic_fluent_question_circle_24_regular.svg",
+      "source": "assets/Question Circle/SVG/ic_fluent_question_circle_24_regular.svg"
+    },
+    {
+      "name": "Info",
+      "file": "svg/ic_fluent_info_24_regular.svg",
+      "source": "assets/Info/SVG/ic_fluent_info_24_regular.svg"
+    },
+    {
+      "name": "Moon",
+      "file": "svg/ic_fluent_weather_moon_24_regular.svg",
+      "source": "assets/Weather Moon/SVG/ic_fluent_weather_moon_24_regular.svg"
+    },
+    {
+      "name": "Bag",
+      "file": "svg/ic_fluent_shopping_bag_24_regular.svg",
+      "source": "assets/Shopping Bag/SVG/ic_fluent_shopping_bag_24_regular.svg"
+    },
+    {
+      "name": "Cash",
+      "file": "svg/ic_fluent_money_24_regular.svg",
+      "source": "assets/Money/SVG/ic_fluent_money_24_regular.svg"
+    },
+    {
+      "name": "Qr",
+      "file": "svg/ic_fluent_qr_code_24_regular.svg",
+      "source": "assets/QR Code/SVG/ic_fluent_qr_code_24_regular.svg"
+    },
+    {
+      "name": "Edit",
+      "file": "svg/ic_fluent_edit_24_regular.svg",
+      "source": "assets/Edit/SVG/ic_fluent_edit_24_regular.svg"
+    },
+    {
+      "name": "Bowl",
+      "file": "svg/ic_fluent_bowl_chopsticks_24_regular.svg",
+      "source": "assets/Bowl Chopsticks/SVG/ic_fluent_bowl_chopsticks_24_regular.svg"
+    },
+    {
+      "name": "FoodRice",
+      "file": "svg/ic_fluent_food_grains_24_regular.svg",
+      "source": "assets/Food Grains/SVG/ic_fluent_food_grains_24_regular.svg"
+    },
+    {
+      "name": "FoodChickenLeg",
+      "file": "svg/ic_fluent_food_chicken_leg_24_regular.svg",
+      "source": "assets/Food Chicken Leg/SVG/ic_fluent_food_chicken_leg_24_regular.svg"
+    },
+    {
+      "name": "FoodEgg",
+      "file": "svg/ic_fluent_food_egg_24_regular.svg",
+      "source": "assets/Food Egg/SVG/ic_fluent_food_egg_24_regular.svg"
+    },
+    {
+      "name": "FoodSalad",
+      "file": "svg/ic_fluent_bowl_salad_24_regular.svg",
+      "source": "assets/Bowl Salad/SVG/ic_fluent_bowl_salad_24_regular.svg"
+    },
+    {
+      "name": "Drink",
+      "file": "svg/ic_fluent_drink_to_go_24_regular.svg",
+      "source": "assets/Drink To Go/SVG/ic_fluent_drink_to_go_24_regular.svg"
+    },
+    {
+      "name": "DrinkCoffee",
+      "file": "svg/ic_fluent_drink_coffee_24_regular.svg",
+      "source": "assets/Drink Coffee/SVG/ic_fluent_drink_coffee_24_regular.svg"
+    },
+    {
+      "name": "FoodToast",
+      "file": "svg/ic_fluent_food_toast_24_regular.svg",
+      "source": "assets/Food Toast/SVG/ic_fluent_food_toast_24_regular.svg"
+    },
+    {
+      "name": "Cookie",
+      "file": "svg/ic_fluent_cookies_24_regular.svg",
+      "source": "assets/Cookies/SVG/ic_fluent_cookies_24_regular.svg"
+    },
+    {
+      "name": "Leaf",
+      "file": "svg/ic_fluent_leaf_one_24_regular.svg",
+      "source": "assets/Leaf One/SVG/ic_fluent_leaf_one_24_regular.svg"
+    },
+    {
+      "name": "Grid",
+      "file": "svg/ic_fluent_grid_24_regular.svg",
+      "source": "assets/Grid/SVG/ic_fluent_grid_24_regular.svg"
+    },
+    {
+      "name": "HomeFilled",
+      "file": "svg/ic_fluent_home_24_filled.svg",
+      "source": "assets/Home/SVG/ic_fluent_home_24_filled.svg"
+    },
+    {
+      "name": "UtensilsFilled",
+      "file": "svg/ic_fluent_food_24_filled.svg",
+      "source": "assets/Food/SVG/ic_fluent_food_24_filled.svg"
+    },
+    {
+      "name": "ReceiptFilled",
+      "file": "svg/ic_fluent_receipt_24_filled.svg",
+      "source": "assets/Receipt/SVG/ic_fluent_receipt_24_filled.svg"
+    },
+    {
+      "name": "UserFilled",
+      "file": "svg/ic_fluent_person_24_filled.svg",
+      "source": "assets/Person/SVG/ic_fluent_person_24_filled.svg"
+    },
+    {
+      "name": "HeartFilled",
+      "file": "svg/ic_fluent_heart_24_filled.svg",
+      "source": "assets/Heart/SVG/ic_fluent_heart_24_filled.svg"
+    },
+    {
+      "name": "StarFilled",
+      "file": "svg/ic_fluent_star_24_filled.svg",
+      "source": "assets/Star/SVG/ic_fluent_star_24_filled.svg"
+    }
+  ],
+  "aliases": {
+    "Food": "Utensils",
+    "DrinkSmoothie": "Drink",
+    "FoodDumpling": "FoodBowl",
+    "FoodBowl": "Bowl"
+  },
+  "filledVariants": {
+    "Home": "HomeFilled",
+    "Utensils": "UtensilsFilled",
+    "Receipt": "ReceiptFilled",
+    "User": "UserFilled",
+    "Heart": "HeartFilled",
+    "Star": "StarFilled"
+  }
+}

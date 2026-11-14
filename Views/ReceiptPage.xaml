@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KantinKita.Views.ReceiptPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:motion="clr-namespace:KantinKita.Helpers"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:ReceiptViewModel" NavigationPage.HasNavigationBar="False" SafeAreaEdges="All"
+    BackgroundColor="{AppThemeBinding Light={StaticResource CanvasLight}, Dark={StaticResource CanvasDark}}">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Padding="20,12" ColumnDefinitions="44,*,44" ColumnSpacing="12">
+            <Border WidthRequest="44" HeightRequest="44" Style="{StaticResource CircleIconBorder}" SemanticProperties.Description="Kembali dari struk">
+                <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding BackCommand}" /></Border.GestureRecognizers>
+                <controls:Icon Glyph="{x:Static controls:Icons.ArrowLeft}" Size="20" Style="{StaticResource IconBase}" />
+            </Border>
+            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                <Label Text="ARSIP TRANSAKSI" Style="{StaticResource TxtOverline}" FontSize="8" />
+                <Label Text="Struk pesanan" Style="{StaticResource TxtBodyStrong}" FontSize="17" />
+            </VerticalStackLayout>
+            <controls:Icon Grid.Column="2" Glyph="{x:Static controls:Icons.Receipt}" Size="23" Style="{StaticResource IconBrand}" />
+        </Grid>
+        <ScrollView motion:UiMotion.Reveal="45" Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <Border Margin="16,8,16,24" Padding="22" StrokeShape="RoundRectangle 16" Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="19">
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                        <controls:Icon Glyph="{x:Static controls:Icons.Bowl}" Size="30" Style="{StaticResource IconBrand}" />
+                        <Label Text="KANTIN KITA" FontFamily="sans-serif-medium" FontSize="20" CharacterSpacing="1" HorizontalTextAlignment="Center" />
+                        <Label Text="RINCIAN PESANAN" Style="{StaticResource TxtOverline}" FontSize="8" CharacterSpacing="1.6" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <VerticalStackLayout Spacing="7">
+                        <Label Text="{Binding Code}" Style="{StaticResource TxtH3}" FontSize="18" />
+                        <Label Text="{Binding PlacedText}" Style="{StaticResource TxtCaption}" FontSize="10" />
+                        <Label Text="{Binding StatusText}" Style="{StaticResource TxtBodyStrong}" FontSize="11" TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                        <Label Text="{Binding ItemCountText}" Style="{StaticResource TxtCaption}" FontSize="10" />
+                    </VerticalStackLayout>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <VerticalStackLayout Spacing="17" BindableLayout.ItemsSource="{Binding Lines}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ReceiptLineViewModel">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Name}" Style="{StaticResource TxtBodyStrong}" FontSize="13" />
+                                    <Label Text="{Binding Stall}" Style="{StaticResource TxtCaption}" FontSize="10" />
+                                    <Label Text="{Binding OptionsText}" IsVisible="{Binding HasOptions}" Style="{StaticResource TxtCaption}" FontSize="10" LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding NoteText, StringFormat='Catatan: {0}'}" IsVisible="{Binding HasNote}" Style="{StaticResource TxtCaption}" FontSize="10" LineBreakMode="WordWrap" />
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                        <Label Text="{Binding QuantityPriceText}" Style="{StaticResource TxtCaption}" FontSize="11" />
+                                        <Label Grid.Column="1" Text="{Binding LineTotalText}" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="14">
+                        <Label Text="Subtotal" Style="{StaticResource TxtCaption}" FontSize="11" />
+                        <Label Grid.Column="1" Text="{Binding SubtotalText}" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                        <Label Grid.Row="1" Text="Layanan kantin" Style="{StaticResource TxtCaption}" FontSize="11" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ServiceFeeText}" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                        <Label Grid.Row="2" Text="Diskon" IsVisible="{Binding HasDiscount}" Style="{StaticResource TxtCaption}" FontSize="11" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DiscountText}" IsVisible="{Binding HasDiscount}" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                        <Label Grid.Row="3" Text="TOTAL" FontFamily="sans-serif-medium" FontSize="15" VerticalOptions="Center" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding TotalText}" motion:UiMotion.Pulse="{Binding TotalText}" Style="{StaticResource TxtH2}" FontSize="23" />
+                    </Grid>
+                    <Label Text="{Binding VoucherText, StringFormat='Voucher: {0}'}" IsVisible="{Binding HasVoucher}" Style="{StaticResource TxtCaption}" FontSize="10" />
+                    <BoxView Style="{StaticResource Divider}" />
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="9" ColumnSpacing="10">
+                        <Label Text="Metode pembayaran" Style="{StaticResource TxtCaption}" FontSize="10" />
+                        <Label Grid.Column="1" Text="{Binding PaymentText}" Style="{StaticResource TxtBodyStrong}" FontSize="10" />
+                        <Label Grid.Row="1" Text="Jadwal siap" Style="{StaticResource TxtCaption}" FontSize="10" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding PickupText}" Style="{StaticResource TxtBodyStrong}" FontSize="10" />
+                    </Grid>
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="{Binding CanteenText}" Style="{StaticResource TxtBodyStrong}" FontSize="12" />
+                        <Label Text="{Binding FulfillmentText}" Style="{StaticResource TxtCaption}" FontSize="10" />
+                        <Label Text="{Binding DestinationText}" Style="{StaticResource TxtBodyStrong}" FontSize="11" LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="5" IsVisible="{Binding HasNote}">
+                        <Label Text="CATATAN PESANAN" Style="{StaticResource TxtOverline}" FontSize="8" />
+                        <Label Text="{Binding NoteText}" Style="{StaticResource TxtCaption}" FontSize="11" LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                    <Label Text="Simpan kode ini untuk mencocokkan rincian saat menerima pesanan." Style="{StaticResource TxtCaption}" FontSize="10" LineHeight="1.2" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+        </ScrollView>
+        <Grid Grid.Row="2" Padding="16,10,16,14" RowDefinitions="Auto,Auto" RowSpacing="6">
+            <ActivityIndicator IsRunning="{Binding IsSharing}" IsVisible="{Binding IsSharing}" HeightRequest="22" />
+            <Button Grid.Row="1" Text="Bagikan struk PDF" Style="{StaticResource BtnPrimary}" Command="{Binding SharePdfCommand}" />
+        </Grid>
+    </Grid>
+</ContentPage>

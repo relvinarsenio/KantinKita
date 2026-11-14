@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KantinKita.Views.MainTabsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:motion="clr-namespace:KantinKita.Helpers"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:MainTabsViewModel"
+    NavigationPage.HasNavigationBar="False" SafeAreaEdges="All"
+    BackgroundColor="{AppThemeBinding Light={StaticResource CanvasLight}, Dark={StaticResource CanvasDark}}">
+    <Grid>
+        <Grid x:Name="PageHost" IsClippedToBounds="True" />
+        <BoxView x:Name="SceneInputShield" Color="Transparent" />
+
+        <!-- A softly tinted floating plate keeps destinations readable above content. -->
+        <VerticalStackLayout x:Name="FloatingDock" Margin="16,0,16,10" Spacing="8" VerticalOptions="End">
+                <Border x:Name="CartDock" motion:UiMotion.Interaction="False" HeightRequest="68" Padding="12,0" IsVisible="{Binding IsCartVisible}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}"
+                        StrokeShape="RoundRectangle 13" StrokeThickness="0"
+                        SemanticProperties.Description="Lihat keranjang dan lanjut pembayaran">
+                    <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding OpenCartCommand}" /></Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="42,*,42" ColumnSpacing="12" VerticalOptions="Center" InputTransparent="True">
+                        <Border HeightRequest="42" WidthRequest="42" StrokeShape="RoundRectangle 11"
+                                StrokeThickness="0" BackgroundColor="{StaticResource Green700}" VerticalOptions="Center">
+                            <controls:Icon Glyph="{x:Static controls:Icons.Bag}" Color="White" Size="21" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                            <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                <Label Text="{Binding CartCanteenName}" FontSize="8" FontFamily="sans-serif-medium" MaxLines="1" LineBreakMode="TailTruncation" Style="{StaticResource TxtCaption}" VerticalOptions="Center" />
+                                <Label Text="{Binding CartCountText}" FontSize="10" Style="{StaticResource TxtCaption}" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding CartTotalText}" FontFamily="sans-serif-medium" FontSize="18" CharacterSpacing="-0.4"
+                                   TextColor="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+                        </VerticalStackLayout>
+                        <Border Grid.Column="2" HeightRequest="42" WidthRequest="42" VerticalOptions="Center"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}"
+                                StrokeShape="RoundRectangle 11" StrokeThickness="0">
+                            <controls:Icon Glyph="{x:Static controls:Icons.ArrowRight}" Size="20" Style="{StaticResource IconBrand}" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Padding="6" StrokeShape="RoundRectangle 28" StrokeThickness="1"
+                        Background="{AppThemeBinding Light={StaticResource NavPlateLight}, Dark={StaticResource NavPlateDark}}"
+                        Stroke="{AppThemeBinding Light=#D4DEEE, Dark={StaticResource LineDark}}">
+                    <Border.Shadow><Shadow Brush="#18213B" Opacity="0.12" Offset="0,4" Radius="8" /></Border.Shadow>
+                <Grid x:Name="NavRail" HeightRequest="70" BackgroundColor="Transparent">
+                    <!-- The active surface travels between destinations as one connected element. -->
+                    <Border x:Name="NavSelection" HeightRequest="62" WidthRequest="78"
+                            HorizontalOptions="Start" VerticalOptions="Center" InputTransparent="True"
+                            Background="{AppThemeBinding Light={StaticResource NavGlassLight}, Dark={StaticResource NavGlassDark}}"
+                            Stroke="{AppThemeBinding Light=#B3FFFFFF, Dark=#55BED3F8}"
+                            StrokeShape="RoundRectangle 28" StrokeThickness="1">
+                        <Grid InputTransparent="True" IsClippedToBounds="True">
+                            <BoxView x:Name="NavShine" WidthRequest="20" Margin="0,-16" Rotation="-25"
+                                     Color="#4DFFFFFF" Opacity="0" HorizontalOptions="Start" />
+                            <BoxView WidthRequest="16" HeightRequest="2" CornerRadius="1" Margin="0,0,0,5"
+                                 HorizontalOptions="Center" VerticalOptions="End"
+                                 Color="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                        </Grid>
+                    </Border>
+                    <Grid ColumnDefinitions="*,*,*,*">
+                        <controls:NavTabItem x:Name="HomeTab" Title="Beranda" Glyph="{x:Static controls:Icons.Home}" Tapped="OnTabTapped" />
+                        <controls:NavTabItem x:Name="MenuTab" Grid.Column="1" Title="Menu" Glyph="{x:Static controls:Icons.Utensils}" Tapped="OnTabTapped" />
+                        <controls:NavTabItem x:Name="OrdersTab" Grid.Column="2" Title="Pesanan" Glyph="{x:Static controls:Icons.Receipt}" Tapped="OnTabTapped" />
+                        <controls:NavTabItem x:Name="ProfileTab" Grid.Column="3" Title="Profil" Glyph="{x:Static controls:Icons.User}" Tapped="OnTabTapped" />
+                    </Grid>
+                </Grid>
+                </Border>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KantinKita.Views.CartPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:motion="clr-namespace:KantinKita.Helpers"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:CartViewModel"
+    NavigationPage.HasNavigationBar="False"
+    SafeAreaEdges="All"
+    BackgroundColor="{AppThemeBinding Light={StaticResource CanvasLight}, Dark={StaticResource CanvasDark}}">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Padding="20,10,20,14" ColumnDefinitions="44,*,Auto" ColumnSpacing="12">
+            <Border SemanticProperties.Description="Kembali" Style="{StaticResource CircleIconBorder}" StrokeShape="RoundRectangle 12">
+                <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnBackTapped" /></Border.GestureRecognizers>
+                <controls:Icon Glyph="{x:Static controls:Icons.ArrowLeft}" Size="19" Style="{StaticResource IconBase}" />
+            </Border>
+            <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                <Label Text="01 / KERANJANG" Style="{StaticResource TxtOverline}" FontSize="9" CharacterSpacing="1.6" />
+                <Label Text="{Binding CanteenName}" Style="{StaticResource TxtH2}" FontSize="18" MaxLines="1" LineBreakMode="TailTruncation" />
+            </VerticalStackLayout>
+            <Button Grid.Column="2" Command="{Binding ClearCommand}" IsVisible="{Binding HasItems}"
+                    Style="{StaticResource BtnGhost}" Text="Kosongkan" FontSize="11" HeightRequest="44" Padding="4,0" VerticalOptions="Center" />
+        </Grid>
+
+        <ScrollView motion:UiMotion.Reveal="45" Grid.Row="1" IsVisible="{Binding HasItems}" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Padding="20,6,20,24" Spacing="16">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <VerticalStackLayout Spacing="3">
+                        <Label Text="Sebelum lanjut," Style="{StaticResource TxtH1}" FontSize="26" />
+                        <Label Text="cek lagi pesanan favoritmu." Style="{StaticResource TxtMuted}" FontSize="12" />
+                    </VerticalStackLayout>
+                    <Border Grid.Column="1" Padding="11,6" VerticalOptions="Center" StrokeShape="RoundRectangle 8" StrokeThickness="0"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}">
+                        <Label Text="{Binding ItemCountText}" FontFamily="sans-serif-medium" FontSize="11"
+                               TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                    </Border>
+                </Grid>
+
+                <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Lines}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:CartLineViewModel">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute"><SwipeItem BackgroundColor="{StaticResource Chili500}" Command="{Binding RemoveCommand}" Text="Hapus" /></SwipeItems>
+                                </SwipeView.RightItems>
+                                <Border Padding="16" Style="{StaticResource Card}" StrokeShape="RoundRectangle 16">
+                                    <VerticalStackLayout Spacing="14">
+                                        <Grid ColumnDefinitions="64,*,44" ColumnSpacing="12">
+                                            <Border WidthRequest="64" HeightRequest="70" StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}">
+                                                <controls:Icon Glyph="{Binding IconGlyph}" Size="32" Style="{StaticResource IconBrand}" IsFilled="True" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}" FontFamily="sans-serif-medium" FontSize="14.5" MaxLines="2" LineBreakMode="WordWrap" />
+                                                <Label Text="{Binding OptionsText}" Style="{StaticResource TxtCaption}" FontSize="10.5" MaxLines="2" />
+                                                <Label Text="{Binding NoteText}" IsVisible="{Binding HasNote}" FontSize="10.5" MaxLines="2"
+                                                       TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                                            </VerticalStackLayout>
+                                            <Border Grid.Column="2" WidthRequest="44" HeightRequest="44" StrokeThickness="0" BackgroundColor="Transparent" VerticalOptions="Start"
+                                                    SemanticProperties.Description="Hapus item">
+                                                <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding RemoveCommand}" /></Border.GestureRecognizers>
+                                                <controls:Icon Glyph="{x:Static controls:Icons.Close}" Size="14" Style="{StaticResource IconMuted}" />
+                                            </Border>
+                                        </Grid>
+                                        <BoxView Style="{StaticResource Divider}" />
+                                        <Grid ColumnDefinitions="*,132" ColumnSpacing="8">
+                                            <VerticalStackLayout Spacing="1" VerticalOptions="Center">
+                                                <Label Text="{Binding LineTotalText}" Style="{StaticResource TxtH3}" FontSize="17" />
+                                                <Label Text="{Binding UnitPriceText, StringFormat='{0} / item'}" Style="{StaticResource TxtCaption}" FontSize="9.5" />
+                                            </VerticalStackLayout>
+                                            <Border Grid.Column="1" Padding="0" HeightRequest="44" StrokeShape="RoundRectangle 10" Style="{StaticResource Panel}"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}">
+                                                <Grid ColumnDefinitions="44,*,44">
+                                                    <Button Text="−" Command="{Binding DecreaseCommand}" FontSize="20" Padding="0" HeightRequest="44" MinimumWidthRequest="44"
+                                                            BackgroundColor="Transparent" TextColor="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" BorderWidth="0" />
+                                                    <Label Grid.Column="1" Text="{Binding QuantityText}" motion:UiMotion.Pulse="{Binding QuantityText}" FontFamily="sans-serif-medium" FontSize="13" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                    <Button Grid.Column="2" Text="+" Command="{Binding IncreaseCommand}" FontSize="19" Padding="0" HeightRequest="44" MinimumWidthRequest="44"
+                                                            BackgroundColor="Transparent" TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" BorderWidth="0" />
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <Border Padding="13" StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}">
+                    <Grid ColumnDefinitions="20,*" ColumnSpacing="9">
+                        <controls:Icon Glyph="{x:Static controls:Icons.Bag}" Size="16" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="Pilih ambil sendiri, meja, atau antar di pembayaran." Style="{StaticResource TxtCaption}" FontSize="10.5" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="1" Padding="32" MaximumWidthRequest="360" IsVisible="{Binding IsEmpty}" Spacing="12" VerticalOptions="Center" HorizontalOptions="Center">
+            <Border WidthRequest="88" HeightRequest="88" StrokeShape="RoundRectangle 24" StrokeThickness="0" HorizontalOptions="Center"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}">
+                <controls:Icon Glyph="{x:Static controls:Icons.Bag}" Size="36" Style="{StaticResource IconBrand}" />
+            </Border>
+            <Label Text="Belum ada pilihan." Style="{StaticResource TxtH1}" FontSize="24" HorizontalTextAlignment="Center" Margin="0,8,0,0" />
+            <Label Text="Makan enak dimulai dari sini. Temukan menu yang paling kamu suka." Style="{StaticResource TxtMuted}" FontSize="12" HorizontalTextAlignment="Center" />
+            <Button Margin="0,12,0,0" Command="{Binding BrowseCommand}" Style="{StaticResource BtnPrimary}" Text="Jelajahi menu" HeightRequest="50" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="2" Margin="16,0,16,12" Padding="18,16" IsVisible="{Binding HasItems}" Style="{StaticResource Panel}" StrokeShape="RoundRectangle 18">
+            <VerticalStackLayout Spacing="12">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="5">
+                    <Label Text="Subtotal" Style="{StaticResource TxtCaption}" FontSize="11" />
+                    <Label Grid.Column="1" Text="{Binding SubtotalText}" Style="{StaticResource TxtBodyStrong}" FontSize="11" />
+                    <Label Grid.Row="1" Text="Layanan kantin" Style="{StaticResource TxtCaption}" FontSize="11" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding ServiceFeeText}" Style="{StaticResource TxtBodyStrong}" FontSize="11" />
+                </Grid>
+                <BoxView Style="{StaticResource Divider}" />
+                <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                    <Label Text="Total pesanan" Style="{StaticResource TxtBodyStrong}" FontSize="13" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="{Binding TotalText}" motion:UiMotion.Pulse="{Binding TotalText}" Style="{StaticResource TxtH1}" FontSize="23" VerticalOptions="Center" />
+                </Grid>
+                <Button Command="{Binding CheckoutCommand}" Style="{StaticResource BtnPrimary}" Text="{Binding CheckoutButtonText}" HeightRequest="50" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

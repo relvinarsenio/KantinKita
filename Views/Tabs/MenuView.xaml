@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="KantinKita.Views.Tabs.MenuView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:motion="clr-namespace:KantinKita.Helpers"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:MenuViewModel">
+
+    <Grid RowDefinitions="Auto,*">
+        <VerticalStackLayout motion:UiMotion.Reveal="0" Padding="20,12,20,8" Spacing="8">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16" MinimumHeightRequest="48">
+                <Label Text="Menu" FontFamily="sans-serif-medium" FontSize="20" VerticalOptions="Center" />
+                <Border Grid.Column="1" MinimumHeightRequest="48" Padding="4,0" StrokeThickness="0" BackgroundColor="Transparent"
+                        HorizontalOptions="End" VerticalOptions="Center" SemanticProperties.Description="Pilih kantin">
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnCanteenTapped" /></Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="16,*,14" ColumnSpacing="6" InputTransparent="True">
+                        <controls:Icon Glyph="{x:Static controls:Icons.Pin}" Size="14" Style="{StaticResource IconBrand}" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{Binding CanteenShortName}" FontFamily="sans-serif-medium" FontSize="14"
+                               LineBreakMode="TailTruncation" MaxLines="1" VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                        <controls:Icon Grid.Column="2" Glyph="{x:Static controls:Icons.ChevronDown}" Size="12" Style="{StaticResource IconBrand}" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Padding="12,0,0,0" MinimumHeightRequest="48" Style="{StaticResource Panel}" StrokeShape="RoundRectangle 12">
+                <Grid ColumnDefinitions="20,*,48" ColumnSpacing="8">
+                    <controls:Icon Glyph="{x:Static controls:Icons.Search}" Size="20" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                    <Entry x:Name="SearchEntry" Grid.Column="1" Placeholder="Cari menu atau warung" ReturnType="Search"
+                           Completed="OnSearchCompleted" Text="{Binding SearchText}" FontSize="14" MinimumHeightRequest="48" VerticalOptions="Center"
+                           SemanticProperties.Description="Cari menu di kantin pilihan" />
+                    <Border Grid.Column="2" WidthRequest="48" HeightRequest="48" IsVisible="{Binding IsSearching}"
+                            StrokeThickness="0" BackgroundColor="Transparent" VerticalOptions="Center" SemanticProperties.Description="Hapus pencarian">
+                        <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding ClearSearchCommand}" /></Border.GestureRecognizers>
+                        <controls:Icon Glyph="{x:Static controls:Icons.Close}" Size="18" Style="{StaticResource IconMuted}" InputTransparent="True" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- A thin outline defines controls while keeping their compact sizing. -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                <Border MinimumHeightRequest="48" Style="{StaticResource CompactSurface}" Padding="8,0" SemanticProperties.Description="Pilih kategori menu">
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnCategoryTapped" /></Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="*,12" ColumnSpacing="6" HorizontalOptions="Fill" VerticalOptions="Center" InputTransparent="True">
+                        <Label Text="{Binding SelectedCategoryLabel}" FontFamily="sans-serif-medium" FontSize="14" LineBreakMode="TailTruncation" MaxLines="1" VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                        <controls:Icon Grid.Column="1" Glyph="{x:Static controls:Icons.ChevronDown}" Size="12" Style="{StaticResource IconBrand}" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" MinimumHeightRequest="48" Style="{StaticResource CompactSurface}" Padding="8,0" SemanticProperties.Description="Urutkan menu">
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnSortTapped" /></Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="*,12" ColumnSpacing="6" HorizontalOptions="Fill" VerticalOptions="Center" InputTransparent="True">
+                        <Label Text="{Binding SortLabel}" FontFamily="sans-serif-medium" FontSize="14" LineBreakMode="TailTruncation" MaxLines="1" VerticalOptions="Center" />
+                        <controls:Icon Grid.Column="1" Glyph="{x:Static controls:Icons.ChevronDown}" Size="12" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+            </Grid>
+            <Label Text="{Binding SummaryText}" Style="{StaticResource TxtCaption}" FontSize="12" LineBreakMode="WordWrap" />
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding Items}" SelectionMode="None"
+                        VerticalScrollBarVisibility="Never" ItemSizingStrategy="MeasureAllItems">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="12" VerticalItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="20,24" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                    <controls:Icon Glyph="{x:Static controls:Icons.Search}" Size="28" Style="{StaticResource IconMuted}" />
+                    <Label Text="Belum ada menu yang cocok" FontFamily="sans-serif-medium" FontSize="18" HorizontalTextAlignment="Center" />
+                    <Label Text="Coba kata kunci lain atau ganti kategori." Style="{StaticResource TxtCaption}" FontSize="12" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:MenuItemCardViewModel">
+                    <Border Style="{StaticResource CompactSurface}">
+                        <Grid RowDefinitions="Auto,Auto" RowSpacing="4">
+                            <VerticalStackLayout Spacing="8" SemanticProperties.Description="{Binding Name, StringFormat='Lihat detail {0}'}">
+                                <VerticalStackLayout.GestureRecognizers><TapGestureRecognizer Command="{Binding OpenCommand}" /></VerticalStackLayout.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" MinimumHeightRequest="28" InputTransparent="True">
+                                    <controls:Icon Glyph="{Binding IconGlyph}" Size="28" HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource IconBrand}" IsFilled="True" />
+                                        <HorizontalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                            <controls:Icon Glyph="{x:Static controls:Icons.Star}" Color="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" IsFilled="True" Size="12" VerticalOptions="Center" />
+                                            <Label Text="{Binding RatingText}" Style="{StaticResource TxtCaption}" FontSize="12" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                </Grid>
+                                <VerticalStackLayout Spacing="4" InputTransparent="True">
+                                    <Label Text="{Binding Name}" FontFamily="sans-serif-medium" FontSize="14" MinimumHeightRequest="40" MaxLines="2" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Stall}" Style="{StaticResource TxtCaption}" FontSize="12" MaxLines="1" LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                            <Grid Grid.Row="1" ColumnDefinitions="*,48" ColumnSpacing="4" MinimumHeightRequest="48">
+                                <Label Text="{Binding PriceText}" FontFamily="sans-serif-medium" FontSize="14" VerticalOptions="Center" LineBreakMode="CharacterWrap" />
+                                <Border Grid.Column="1" WidthRequest="48" MinimumHeightRequest="48" StrokeThickness="0" BackgroundColor="Transparent"
+                                        SemanticProperties.Description="{Binding Name, StringFormat='Tambah {0} ke keranjang'}">
+                                    <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding AddCommand}" /></Border.GestureRecognizers>
+                                        <Border Style="{StaticResource CompactAction}" HorizontalOptions="Center" VerticalOptions="Center" InputTransparent="True">
+                                        <Grid>
+                                            <controls:Icon Glyph="{x:Static controls:Icons.Plus}" Size="18" Style="{StaticResource IconBrand}" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsInCart, Converter={StaticResource InvertedBool}}" />
+                                                <Label Text="{Binding QuantityText}" motion:UiMotion.Pulse="{Binding QuantityText}" FontFamily="sans-serif-medium" FontSize="12"
+                                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" IsVisible="{Binding IsInCart}"
+                                                       TextColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+                                        </Grid>
+                                        </Border>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <VerticalStackLayout x:Name="CatalogFooter" Padding="12,16,12,32" Spacing="8" HorizontalOptions="Center">
+                    <Label Text="Dibuat segar. Siap untuk harimu." Style="{StaticResource TxtCaption}" FontSize="12" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.Footer>
+        </CollectionView>
+    </Grid>
+</ContentView>

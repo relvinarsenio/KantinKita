@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KantinKita.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:KantinKita.Controls"
+    xmlns:motion="clr-namespace:KantinKita.Helpers"
+    xmlns:vm="clr-namespace:KantinKita.ViewModels"
+    x:DataType="vm:LoginViewModel"
+    NavigationPage.HasNavigationBar="False"
+    SafeAreaEdges="All"
+    BackgroundColor="{AppThemeBinding Light={StaticResource CanvasLight}, Dark={StaticResource CanvasDark}}">
+
+    <ScrollView x:Name="LoginScroll" VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout x:Name="LoginContent" Padding="24,20,24,24" Spacing="24" MaximumWidthRequest="480" HorizontalOptions="Fill">
+            <Grid x:Name="BrandHeader" ColumnDefinitions="36,*" ColumnSpacing="12">
+                <Border WidthRequest="36" HeightRequest="36" StrokeThickness="0" StrokeShape="RoundRectangle 12" Background="{StaticResource BrandGradient}">
+                    <controls:Icon Glyph="{x:Static controls:Icons.Bowl}" Size="24" Color="White" />
+                </Border>
+                <Label Grid.Column="1" Text="kantin kita" FontFamily="sans-serif-medium" FontSize="18" VerticalTextAlignment="Center" />
+            </Grid>
+
+            <!-- Fluent's Android type ramp and spacing system; the artwork is decorative,
+                 so large text never has to fit inside a fixed-size illustration. -->
+            <Grid x:Name="WelcomeCard" RowDefinitions="Auto,Auto" RowSpacing="12">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Jeda enak,&#10;versi kamu." FontFamily="sans-serif" FontSize="34" />
+                    <Label Text="Pilihan kantin untuk harimu." Style="{StaticResource TxtBody}" FontSize="14" />
+                </VerticalStackLayout>
+                <Grid Grid.Row="1" HeightRequest="112" InputTransparent="True" SemanticProperties.Description="Pesan menu favorit, ambil di kantin, makan di meja, atau antar ke ruangan">
+                    <Border x:Name="MealCard" WidthRequest="236" HeightRequest="96" Margin="0,4,16,0" Rotation="-4"
+                            HorizontalOptions="End" VerticalOptions="Start" Padding="16" StrokeThickness="0" StrokeShape="RoundRectangle 20"
+                            Background="{StaticResource BrandGradient}">
+                        <Grid ColumnDefinitions="64,*" ColumnSpacing="16">
+                            <Border WidthRequest="64" HeightRequest="64" StrokeThickness="1" Stroke="#38FFFFFF" StrokeShape="RoundRectangle 16" BackgroundColor="#1FFFFFFF">
+                                <controls:Icon Glyph="{x:Static controls:Icons.FoodRice}" Size="40" Color="White" IsFilled="True" />
+                            </Border>
+                            <Grid Grid.Column="1" ColumnDefinitions="*,*" ColumnSpacing="8" VerticalOptions="Center">
+                                <Border WidthRequest="36" HeightRequest="36" StrokeThickness="0" StrokeShape="RoundRectangle 12" BackgroundColor="#20FFFFFF">
+                                    <controls:Icon Glyph="{x:Static controls:Icons.FoodEgg}" Size="24" Color="White" />
+                                </Border>
+                                <Border Grid.Column="1" WidthRequest="36" HeightRequest="36" StrokeThickness="0" StrokeShape="RoundRectangle 12" BackgroundColor="#20FFFFFF">
+                                    <controls:Icon Glyph="{x:Static controls:Icons.Leaf}" Size="24" Color="White" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Border x:Name="CoffeeCard" WidthRequest="56" HeightRequest="56" Margin="0,0,8,0" Rotation="8"
+                            HorizontalOptions="End" VerticalOptions="Start" StrokeThickness="1" StrokeShape="RoundRectangle 16"
+                            Stroke="{AppThemeBinding Light={StaticResource LineLight}, Dark={StaticResource LineDark}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
+                        <controls:Icon Glyph="{x:Static controls:Icons.DrinkCoffee}" Size="32" Style="{StaticResource IconBrand}" />
+                    </Border>
+                    <Border x:Name="PickupCard" WidthRequest="104" HeightRequest="48" Margin="0,60,0,0" Rotation="2"
+                            HorizontalOptions="Start" VerticalOptions="Start" Padding="8" StrokeShape="RoundRectangle 12" StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light={StaticResource LineLight}, Dark={StaticResource LineDark}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
+                        <Grid ColumnDefinitions="32,*" ColumnSpacing="8">
+                            <Border WidthRequest="32" HeightRequest="32" StrokeThickness="0" StrokeShape="RoundRectangle 8"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource BrandSoftLight}, Dark={StaticResource BrandSoftDark}}">
+                                <controls:Icon Glyph="{x:Static controls:Icons.Bag}" Size="20" Style="{StaticResource IconBrand}" />
+                            </Border>
+                            <controls:Icon Grid.Column="1" Glyph="{x:Static controls:Icons.CheckCircle}" Size="20" Style="{StaticResource IconBrand}" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <VerticalStackLayout x:Name="FormContent" Spacing="12">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Profil di perangkat ini" Style="{StaticResource TxtCaption}" FontSize="12" />
+                    <Label Text="Biar terasa milikmu." FontFamily="sans-serif-medium" FontSize="20" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Nama panggilan" FontFamily="sans-serif-medium" FontSize="14" />
+                    <Border x:Name="NameField" Padding="16,0" Style="{StaticResource Panel}" StrokeShape="RoundRectangle 12">
+                        <Grid ColumnDefinitions="24,*" ColumnSpacing="12" MinimumHeightRequest="56">
+                            <controls:Icon Glyph="{x:Static controls:Icons.User}" Size="20" Style="{StaticResource IconMuted}" HorizontalOptions="Center" VerticalOptions="Center" InputTransparent="True" />
+                            <Entry x:Name="NameEntry" controls:LoginInput.CenterContent="True" motion:UiMotion.Interaction="False" Grid.Column="1" Text="{Binding DisplayName}" Placeholder="Nama kamu" MaxLength="80"
+                                   FontSize="14" VerticalOptions="Center" VerticalTextAlignment="Center" MinimumHeightRequest="48"
+                                   ReturnType="Next" Completed="OnNameCompleted" Focused="OnFieldFocused" Unfocused="OnFieldUnfocused" SemanticProperties.Description="Nama panggilan" />
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Email" FontFamily="sans-serif-medium" FontSize="14" />
+                    <Border x:Name="EmailField" Padding="16,0" Style="{StaticResource Panel}" StrokeShape="RoundRectangle 12">
+                        <Grid ColumnDefinitions="24,*" ColumnSpacing="12" MinimumHeightRequest="56">
+                            <controls:Icon Glyph="{x:Static controls:Icons.Mail}" Size="20" Style="{StaticResource IconMuted}" HorizontalOptions="Center" VerticalOptions="Center" InputTransparent="True" />
+                            <Entry x:Name="EmailEntry" controls:LoginInput.CenterContent="True" motion:UiMotion.Interaction="False" Grid.Column="1" Text="{Binding Email}" Placeholder="nama@kampus.ac.id" Keyboard="Email" MaxLength="254"
+                                   FontSize="14" VerticalOptions="Center" VerticalTextAlignment="Center" MinimumHeightRequest="48"
+                                   ReturnType="Go" Completed="OnEmailCompleted" Focused="OnFieldFocused" Unfocused="OnFieldUnfocused" SemanticProperties.Description="Alamat email" />
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Border Padding="12,8" StrokeThickness="0" StrokeShape="RoundRectangle 12" IsVisible="{Binding HasError}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Chili100}, Dark={StaticResource SurfaceMutedDark}}">
+                    <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" SemanticProperties.Description="{Binding ErrorMessage}" />
+                </Border>
+
+                <Grid>
+                    <Button Text="Mulai sekarang" Style="{StaticResource BtnPrimary}" FontSize="14" HeightRequest="56" CornerRadius="12" Command="{Binding ContinueCommand}" IsEnabled="{Binding IsReady}" />
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" WidthRequest="20" HeightRequest="20" HorizontalOptions="End" Margin="0,0,16,0"
+                                       Color="{AppThemeBinding Light=White, Dark={StaticResource OnBrandDark}}" InputTransparent="True" />
+                </Grid>
+                <Button Text="Jelajahi sebagai tamu" Style="{StaticResource BtnGhost}" FontSize="14" HeightRequest="48" Padding="4,0" Command="{Binding ContinueAsGuestCommand}" IsEnabled="{Binding IsReady}" />
+                <Grid ColumnDefinitions="16,*" ColumnSpacing="8">
+                    <controls:Icon Glyph="{x:Static controls:Icons.Info}" Size="16" Style="{StaticResource IconMuted}" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="Email belum diverifikasi." Style="{StaticResource TxtCaption}" FontSize="12" />
+                </Grid>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

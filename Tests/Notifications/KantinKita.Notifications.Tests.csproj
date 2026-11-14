@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls.Core" Version="10.0.110" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <Using Include="Microsoft.Maui.Controls" />
+    <Using Include="Microsoft.Maui.Graphics" />
+    <Using Include="Microsoft.Maui.ApplicationModel" />
+    <Compile Include="..\..\Models\MenuModels.cs" Link="Models\MenuModels.cs" />
+    <Compile Include="..\..\Models\CanteenModels.cs" Link="Models\CanteenModels.cs" />
+    <Compile Include="..\..\Models\FulfillmentModels.cs" Link="Models\FulfillmentModels.cs" />
+    <Compile Include="..\..\Models\MenuIconMap.cs" Link="Models\MenuIconMap.cs" />
+    <Compile Include="..\..\Controls\Icons.cs" Link="Controls\Icons.cs" />
+    <Compile Include="..\..\Helpers\Money.cs" Link="Helpers\Money.cs" />
+    <Compile Include="..\..\Helpers\OrderStatusDisplay.cs" Link="Helpers\OrderStatusDisplay.cs" />
+    <Compile Include="..\..\ViewModels\HomeNotificationsViewModel.cs" Link="ViewModels\HomeNotificationsViewModel.cs" />
+  </ItemGroup>
+</Project>
